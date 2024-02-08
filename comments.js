@@ -1,25 +1,28 @@
-const { app, BrowserWindow } = require('electron');
-// Create web browser
-function createWindow() {
-    const win = new BrowserWindow({
-        width: 800,
-        height: 600,
-        webPreferences: {
-            nodeIntegration: true
-        }
-    });
+// create web server using express
+const express = require('express');
+const app = express();
+// create router object
+const router = express.Router();
 
-    win.loadURL('https://www.example.com');
-}
-
-app.whenReady().then(() => {
-    createWindow();
-
-    app.on('activate', function () {
-        if (BrowserWindow.getAllWindows().length === 0) createWindow();
-    });
+// define route for get request
+router.get('/', (req, res) => {
+    res.send('Comments are available');
 });
 
-app.on('window-all-closed', function () {
-    if (process.platform !== 'darwin') app.quit();
+// define route for post request
+router.post('/', (req, res) => {
+    res.send('Comments are created');
 });
+
+// define route for put request
+router.put('/', (req, res) => {
+    res.send('Comments are updated');
+});
+
+// define route for delete request
+router.delete('/', (req, res) => {
+    res.send('Comments are deleted');
+});
+
+// export router object
+module.exports = router;
